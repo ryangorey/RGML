@@ -1,12 +1,12 @@
 /* ==========================================================
-   Client Portal Custom Theme
-   Black backdrop · pink accent · floating photo-frame accents
+   Client Portal Custom Theme â€” targets real DJEP markup
+   Black backdrop Â· pink accent Â· responsive hover/click states
    ========================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
 
 :root {
-  --bg: #0a0a0a;
+  --bg: #000000;
   --panel: #141414;
   --panel-raised: #1c1c1c;
   --border: #262626;
@@ -14,25 +14,36 @@
   --muted: #9a9a95;
   --pink: #ff3d81;
   --pink-hover: #ff6fa3;
+  --pink-active: #e0316f;
   --focus: #4ac9ff;
   --radius-lg: 18px;
   --radius-md: 12px;
   --radius-sm: 8px;
 }
 
+* { box-sizing: border-box; }
+
+@media (prefers-reduced-motion: reduce) {
+  * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
 /* --- Global backdrop --- */
-body,
-.portal-wrapper,
-.client-portal,
-#portal-container {
+body.djep-body {
   background-color: var(--bg) !important;
   color: var(--text) !important;
   font-family: 'Inter', system-ui, sans-serif !important;
   position: relative;
 }
 
-/* --- Ambient glow (signature background effect) --- */
-body::before {
+#djep-page {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Ambient glow, matches the landing page's signature look */
+body.djep-body::before {
   content: "";
   position: fixed;
   top: -25%;
@@ -46,203 +57,265 @@ body::before {
   pointer-events: none;
   z-index: 0;
 }
-
 @keyframes sweep {
   from { transform: translateX(-50%) rotate(0deg); }
   to { transform: translateX(-50%) rotate(360deg); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  body::before,
-  .portal-wrapper::before,
-  .portal-wrapper::after {
-    animation: none !important;
-  }
+/* --- Header / Nav --- */
+#djep-header {
+  padding: 24px 20px 8px;
 }
 
-/* --- Floating accent cards (pure CSS, no extra markup needed) --- */
-.portal-wrapper::before,
-.portal-wrapper::after {
-  content: "";
-  position: fixed;
-  width: 100px;
-  height: 118px;
-  background: #f5f2ea;
-  border-radius: 4px;
-  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
-  z-index: 0;
-  opacity: 0.85;
-  animation: bob 6s ease-in-out infinite;
-  pointer-events: none;
-}
-.portal-wrapper::before {
-  top: 10%;
-  left: 6%;
-  transform: rotate(-9deg);
-  background-image: linear-gradient(135deg, var(--pink), #7a1f42);
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-}
-.portal-wrapper::after {
-  top: 16%;
-  right: 7%;
-  transform: rotate(7deg);
-  background-image: linear-gradient(135deg, var(--focus), #1f5a7a);
-  background-size: 100% 60%;
-  background-repeat: no-repeat;
-  animation-delay: 2s;
+#djep-navbar {
+  border-bottom: 1px solid var(--border);
+  margin: 0 20px 24px;
 }
 
-@keyframes bob {
-  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
-  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
-}
-.portal-wrapper::before { --r: -9deg; }
-.portal-wrapper::after { --r: 7deg; }
-
-@media (max-width: 720px) {
-  .portal-wrapper::before,
-  .portal-wrapper::after,
-  body::before {
-    display: none;
-  }
+#djep-navigation {
+  list-style: none;
+  display: flex;
+  gap: 4px;
+  padding: 0;
+  margin: 0;
+  flex-wrap: wrap;
 }
 
-/* --- Panels / cards --- */
-.portal-panel,
-.portal-card,
-.dashboard-widget,
-.portal-section,
-.login-box {
-  background-color: var(--panel) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-lg) !important;
+#djep-navigation li {
+  display: inline-block;
+}
+
+#djep-navigation a {
+  display: block;
+  padding: 12px 18px;
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  transition: color 0.2s ease, background-color 0.2s ease;
+}
+
+#djep-navigation a:hover {
+  color: var(--text);
+  background-color: var(--panel);
+}
+
+#djep-navigation li.selected a {
+  color: var(--pink);
+  border-bottom: 2px solid var(--pink);
+}
+
+/* --- Content wrapper --- */
+#djep-content {
+  padding: 0 20px 60px;
+}
+
+/* --- Welcome box --- */
+.djep-welcometextbox {
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  margin-bottom: 24px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.5);
-  position: relative;
-  z-index: 1;
 }
 
-/* --- Headings --- */
-h1, h2 {
-  font-family: 'Bebas Neue', sans-serif !important;
+.djep-h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
   letter-spacing: 0.01em;
-  color: var(--text) !important;
+  color: var(--text);
+  margin: 0 0 14px;
 }
 
-h3, h4 {
-  color: var(--text) !important;
+.djep-welcometextbox p {
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 0.95rem;
 }
 
-p, span, label, .muted-text {
+.djep-welcometextbox b {
+  color: var(--text);
+}
+
+/* --- Section boxes (events, emails, meetings) --- */
+.djep-eventlistbox,
+.djep-latestemailsbox,
+.djep-upcomingmeetingsbox {
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.djep-titlebar,
+.djep-titlebarsmall {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--pink);
+  margin: 0 0 16px;
+}
+
+/* --- Single event card --- */
+.djep-singleeventdiv {
+  background-color: var(--panel-raised);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 16px;
+}
+
+.djep-singleeventdiv table {
+  color: var(--text);
+}
+
+.djep-singleeventdiv td {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+/* Calendar chip */
+.calendar {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: var(--bg);
+  border: 1px solid var(--pink);
+  border-radius: var(--radius-sm);
+  line-height: 1.1;
+}
+.calendar .month {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--pink);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+.calendar .day {
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--text);
+}
+.calendar .year {
+  font-size: 0.65rem;
   color: var(--muted);
 }
 
-/* --- Links --- */
-a {
-  color: var(--pink);
-  text-decoration: none;
-  transition: color 0.2s ease;
-}
-a:hover {
-  color: var(--pink-hover);
-}
-
-/* --- Buttons (main CTA style) --- */
-button,
-.btn,
-input[type="submit"],
-input[type="button"],
-.cta {
+/* --- Action buttons (the main interactive elements) --- */
+.djep-planeventbutton,
+.djep-eventdetailsbutton,
+.djep-paymentbutton {
+  display: inline-block;
   background-color: var(--pink) !important;
   color: #12100a !important;
-  border: none !important;
-  border-radius: 999px !important;
-  padding: 14px 30px;
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  margin: 4px 0 4px 8px;
   font-weight: 800;
-  font-size: 1rem;
+  font-size: 0.85rem;
   letter-spacing: 0.01em;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
-  transition: transform 0.18s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-  box-shadow: 0 8px 24px rgba(255,61,129,0.25);
+  transition: transform 0.15s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 18px rgba(255,61,129,0.22);
 }
 
-button:hover,
-.btn:hover,
-input[type="submit"]:hover,
-input[type="button"]:hover,
-.cta:hover {
+.djep-planeventbutton:hover,
+.djep-eventdetailsbutton:hover,
+.djep-paymentbutton:hover {
   background-color: var(--pink-hover) !important;
-  transform: translateY(-3px) scale(1.02);
-  box-shadow: 0 12px 32px rgba(255,61,129,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(255,61,129,0.32);
 }
 
-button:active,
-.btn:active {
-  transform: translateY(0) scale(0.99);
+.djep-planeventbutton:active,
+.djep-eventdetailsbutton:active,
+.djep-paymentbutton:active {
+  background-color: var(--pink-active) !important;
+  transform: translateY(0) scale(0.97);
+  box-shadow: 0 3px 10px rgba(255,61,129,0.25);
 }
 
-button:focus-visible,
-.btn:focus-visible,
-a:focus-visible {
-  outline: 2px solid var(--focus) !important;
-  outline-offset: 3px;
+.djep-planeventbutton:focus-visible,
+.djep-eventdetailsbutton:focus-visible,
+.djep-paymentbutton:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
 }
 
-/* Secondary / outline button variant */
-.btn-secondary,
-.btn-outline {
+/* Secondary buttons get a subtler treatment so the primary CTA still pops */
+.djep-eventdetailsbutton {
   background-color: transparent !important;
   color: var(--text) !important;
-  border: 1px solid var(--border) !important;
+  border: 1px solid var(--border);
+  box-shadow: none;
 }
-.btn-secondary:hover,
-.btn-outline:hover {
-  border-color: var(--pink) !important;
+.djep-eventdetailsbutton:hover {
+  border-color: var(--pink);
   background-color: rgba(255,61,129,0.08) !important;
-}
-
-/* --- Form fields --- */
-input[type="text"],
-input[type="email"],
-input[type="tel"],
-input[type="password"],
-input[type="date"],
-textarea,
-select {
-  background-color: var(--panel-raised) !important;
-  color: var(--text) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: var(--radius-sm) !important;
-  padding: 12px 14px;
-}
-
-input:focus,
-textarea:focus,
-select:focus {
-  outline: none !important;
-  border-color: var(--pink) !important;
-  box-shadow: 0 0 0 3px rgba(255,61,129,0.15);
-}
-
-/* --- Navigation / header bar --- */
-.portal-header,
-.portal-nav {
-  background-color: var(--panel) !important;
-  border-bottom: 1px solid var(--border) !important;
-  position: relative;
-  z-index: 2;
-}
-
-/* --- Tables (invoices, event lists, etc.) --- */
-table {
-  background-color: var(--panel) !important;
-  border: 1px solid var(--border) !important;
-}
-th {
-  background-color: var(--panel-raised) !important;
   color: var(--text) !important;
 }
-td {
-  border-color: var(--border) !important;
+
+/* --- Empty states (No Emails Found, etc.) --- */
+#listtable-emails,
+#listtable-meetings {
   color: var(--muted);
+  font-size: 0.9rem;
+}
+
+/* --- Footer --- */
+#footer {
+  padding: 24px 20px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.8rem;
+  border-top: 1px solid var(--border);
+}
+
+/* --- Clearfix helpers stay invisible/functional --- */
+.djep-cleared,
+.cf {
+  clear: both;
+}
+
+/* --- Responsive behavior --- */
+@media (max-width: 720px) {
+  body.djep-body::before {
+    display: none;
+  }
+  #djep-navigation {
+    justify-content: flex-start;
+    overflow-x: auto;
+  }
+  .djep-singleeventdiv .col-xs-12.col-sm-5 p {
+    text-align: left !important;
+  }
+  .djep-planeventbutton,
+  .djep-eventdetailsbutton,
+  .djep-paymentbutton {
+    display: block;
+    width: 100%;
+    margin: 8px 0 0;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .djep-welcometextbox,
+  .djep-eventlistbox,
+  .djep-latestemailsbox,
+  .djep-upcomingmeetingsbox {
+    padding: 18px;
+    border-radius: var(--radius-md);
+  }
 }
