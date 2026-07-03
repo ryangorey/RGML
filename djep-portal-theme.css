@@ -1,0 +1,248 @@
+/* ==========================================================
+   Client Portal Custom Theme
+   Black backdrop · pink accent · floating photo-frame accents
+   ========================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --bg: #0a0a0a;
+  --panel: #141414;
+  --panel-raised: #1c1c1c;
+  --border: #262626;
+  --text: #f5f5f0;
+  --muted: #9a9a95;
+  --pink: #ff3d81;
+  --pink-hover: #ff6fa3;
+  --focus: #4ac9ff;
+  --radius-lg: 18px;
+  --radius-md: 12px;
+  --radius-sm: 8px;
+}
+
+/* --- Global backdrop --- */
+body,
+.portal-wrapper,
+.client-portal,
+#portal-container {
+  background-color: var(--bg) !important;
+  color: var(--text) !important;
+  font-family: 'Inter', system-ui, sans-serif !important;
+  position: relative;
+}
+
+/* --- Ambient glow (signature background effect) --- */
+body::before {
+  content: "";
+  position: fixed;
+  top: -25%;
+  left: 50%;
+  width: 1000px;
+  height: 1000px;
+  transform: translateX(-50%);
+  background: conic-gradient(from 0deg, transparent 0deg, rgba(255,61,129,0.14) 60deg, transparent 140deg, rgba(74,201,255,0.10) 220deg, transparent 300deg, transparent 360deg);
+  animation: sweep 24s linear infinite;
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes sweep {
+  from { transform: translateX(-50%) rotate(0deg); }
+  to { transform: translateX(-50%) rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body::before,
+  .portal-wrapper::before,
+  .portal-wrapper::after {
+    animation: none !important;
+  }
+}
+
+/* --- Floating accent cards (pure CSS, no extra markup needed) --- */
+.portal-wrapper::before,
+.portal-wrapper::after {
+  content: "";
+  position: fixed;
+  width: 100px;
+  height: 118px;
+  background: #f5f2ea;
+  border-radius: 4px;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.5);
+  z-index: 0;
+  opacity: 0.85;
+  animation: bob 6s ease-in-out infinite;
+  pointer-events: none;
+}
+.portal-wrapper::before {
+  top: 10%;
+  left: 6%;
+  transform: rotate(-9deg);
+  background-image: linear-gradient(135deg, var(--pink), #7a1f42);
+  background-size: 100% 60%;
+  background-repeat: no-repeat;
+}
+.portal-wrapper::after {
+  top: 16%;
+  right: 7%;
+  transform: rotate(7deg);
+  background-image: linear-gradient(135deg, var(--focus), #1f5a7a);
+  background-size: 100% 60%;
+  background-repeat: no-repeat;
+  animation-delay: 2s;
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-14px) rotate(var(--r, 0deg)); }
+}
+.portal-wrapper::before { --r: -9deg; }
+.portal-wrapper::after { --r: 7deg; }
+
+@media (max-width: 720px) {
+  .portal-wrapper::before,
+  .portal-wrapper::after,
+  body::before {
+    display: none;
+  }
+}
+
+/* --- Panels / cards --- */
+.portal-panel,
+.portal-card,
+.dashboard-widget,
+.portal-section,
+.login-box {
+  background-color: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  position: relative;
+  z-index: 1;
+}
+
+/* --- Headings --- */
+h1, h2 {
+  font-family: 'Bebas Neue', sans-serif !important;
+  letter-spacing: 0.01em;
+  color: var(--text) !important;
+}
+
+h3, h4 {
+  color: var(--text) !important;
+}
+
+p, span, label, .muted-text {
+  color: var(--muted);
+}
+
+/* --- Links --- */
+a {
+  color: var(--pink);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--pink-hover);
+}
+
+/* --- Buttons (main CTA style) --- */
+button,
+.btn,
+input[type="submit"],
+input[type="button"],
+.cta {
+  background-color: var(--pink) !important;
+  color: #12100a !important;
+  border: none !important;
+  border-radius: 999px !important;
+  padding: 14px 30px;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 0.18s ease, background-color 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 8px 24px rgba(255,61,129,0.25);
+}
+
+button:hover,
+.btn:hover,
+input[type="submit"]:hover,
+input[type="button"]:hover,
+.cta:hover {
+  background-color: var(--pink-hover) !important;
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 12px 32px rgba(255,61,129,0.35);
+}
+
+button:active,
+.btn:active {
+  transform: translateY(0) scale(0.99);
+}
+
+button:focus-visible,
+.btn:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--focus) !important;
+  outline-offset: 3px;
+}
+
+/* Secondary / outline button variant */
+.btn-secondary,
+.btn-outline {
+  background-color: transparent !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+}
+.btn-secondary:hover,
+.btn-outline:hover {
+  border-color: var(--pink) !important;
+  background-color: rgba(255,61,129,0.08) !important;
+}
+
+/* --- Form fields --- */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="password"],
+input[type="date"],
+textarea,
+select {
+  background-color: var(--panel-raised) !important;
+  color: var(--text) !important;
+  border: 1px solid var(--border) !important;
+  border-radius: var(--radius-sm) !important;
+  padding: 12px 14px;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  outline: none !important;
+  border-color: var(--pink) !important;
+  box-shadow: 0 0 0 3px rgba(255,61,129,0.15);
+}
+
+/* --- Navigation / header bar --- */
+.portal-header,
+.portal-nav {
+  background-color: var(--panel) !important;
+  border-bottom: 1px solid var(--border) !important;
+  position: relative;
+  z-index: 2;
+}
+
+/* --- Tables (invoices, event lists, etc.) --- */
+table {
+  background-color: var(--panel) !important;
+  border: 1px solid var(--border) !important;
+}
+th {
+  background-color: var(--panel-raised) !important;
+  color: var(--text) !important;
+}
+td {
+  border-color: var(--border) !important;
+  color: var(--muted);
+}
