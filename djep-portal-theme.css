@@ -111,6 +111,29 @@ body.djep-body::before {
   padding: 0 20px 60px;
 }
 
+/* --- Plan My Event page: print helper row + section spacing --- */
+#djep-printhelper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 4px 0 24px;
+}
+
+#djep-printplanningformicon {
+  cursor: pointer;
+}
+
+.djep-planneraccessbox,
+.djep-timelinebox,
+.djep-othertoolsbox {
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
 /* --- Welcome box --- */
 .djep-welcometextbox {
   background-color: var(--panel);
