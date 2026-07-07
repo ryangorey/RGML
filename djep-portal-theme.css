@@ -262,6 +262,15 @@ body.djep-body::before {
   margin: 0 0 16px;
 }
 
+.djep-titlebarsmall:not(:first-child) {
+  margin-top: 20px;
+}
+
+/* Remove the blank spacer row above the Change Password button */
+#spacer_row {
+  display: none;
+}
+
 /* --- Single event card --- */
 .djep-singleeventdiv {
   background-color: var(--panel-raised);
