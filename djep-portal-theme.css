@@ -134,6 +134,84 @@ body.djep-body::before {
   box-shadow: 0 20px 60px rgba(0,0,0,0.4);
 }
 
+/* --- Profile page: contact/login detail boxes --- */
+.djep-contactdetailsbox,
+.djep-logindetailsbox {
+  background-color: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 22px 24px;
+  margin-bottom: 20px;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.djep-contactdetailsbox table,
+.djep-logindetailsbox table {
+  border-collapse: collapse;
+}
+
+.djep-contactdetailsbox table tr td,
+.djep-logindetailsbox table tr td {
+  padding: 9px 4px;
+  border-bottom: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.djep-contactdetailsbox table tr:last-child td,
+.djep-logindetailsbox table tr:last-child td {
+  border-bottom: none;
+}
+
+.djep-contactdetailsbox table td[align="right"],
+.djep-logindetailsbox table td[align="right"] {
+  color: var(--text);
+  font-weight: 600;
+  text-align: right;
+}
+
+/* Subsection headings inside the contact details table (Contact Person, Internet, etc.) */
+.djep-contactdetailsbox td.djep-sectiontitle {
+  border-bottom: none !important;
+  padding: 20px 4px 8px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.72rem;
+  color: var(--pink);
+}
+.djep-contactdetailsbox tr:first-child td.djep-sectiontitle {
+  padding-top: 2px !important;
+}
+.djep-contactdetailsbox td.djep-sectiontitle b {
+  font-weight: 700;
+}
+
+/* Action links/buttons (Edit Contact Info, Change Password, Save) */
+.djep-actionbutton {
+  display: inline-block;
+  background-color: transparent;
+  color: var(--pink) !important;
+  border: 1px solid var(--pink);
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-weight: 700;
+  font-size: 0.8rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.djep-actionbutton:hover {
+  background-color: var(--pink);
+  color: #12100a !important;
+}
+
+/* SMS consent radio labels */
+.djep-radiobutton {
+  color: var(--muted);
+  margin-right: 14px;
+  font-size: 0.9rem;
+}
+
 /* --- Welcome box --- */
 .djep-welcometextbox {
   background-color: var(--panel);
