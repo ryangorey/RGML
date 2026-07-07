@@ -298,6 +298,17 @@ body.djep-body::before {
   color: var(--text) !important;
 }
 
+/* --- Edit / View links (Timeline, Names Form rows) --- */
+.djep-readviewbutton {
+  color: var(--pink);
+  text-decoration: none;
+  font-weight: 600;
+}
+.djep-readviewbutton:hover {
+  color: var(--pink-hover);
+  text-decoration: underline;
+}
+
 /* --- Empty states (No Emails Found, etc.) --- */
 #listtable-emails,
 #listtable-meetings {
